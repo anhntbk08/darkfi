@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Perform ad-hoc templating driven by a data structure"><title>Adhoc in derive_adhoc - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="derive_adhoc" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0bdb00d55 2023-08-15)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc derive"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../derive_adhoc/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../derive_adhoc/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><div class="sidebar-elems"><h2><a href="index.html">In derive_adhoc</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Derive Macro <a href="index.html">derive_adhoc</a>::<wbr><a class="derive" href="#">Adhoc</a><button id="copy-path" title="Copy item path to clipboard"><img src="../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../src/derive_adhoc_macros/macros.rs.html#360-362">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>#[derive(Adhoc)]
+{
+    // Attributes available to this derive:
+    #[adhoc]
+    #[derive_adhoc]
+}
+</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Perform ad-hoc templating driven by a data structure</p>
+<p>This macro does two things:</p>
+<ol>
+<li>
+<p>It captures the data structure definition,
+so that it can be used with calls to
+<a href="macro.derive_adhoc.html" title="macro derive_adhoc::derive_adhoc"><code>derive_adhoc!</code></a>.</p>
+</li>
+<li>
+<p>If <code>#[derive_adhoc(MyMacro)]</code> attributes are also specified,
+they are taken to refer to reuseable templates
+defined with
+<a href="macro.define_derive_adhoc.html" title="macro derive_adhoc::define_derive_adhoc"><code>define_derive_adhoc!</code></a>.
+Each such <code>MyMacro</code> is applied to the data structure.</p>
+<p>You can specify
+<a href="doc_reference/index.html#expansion-options">expansion options</a>
+for each such template application, by writing
+<code>#[derive_adhoc(MyMacro[OPTIONS,..])]</code>, where
+<code>[OPTIONS,..]</code> is a comma-separated list of expansion options
+contained within <code>[ ]</code>.</p>
+</li>
+</ol>
+<h3 id="applying-a-template-derive-adhoc-macro-from-another-crate"><a href="#applying-a-template-derive-adhoc-macro-from-another-crate">Applying a template (derive-adhoc macro) from another crate</a></h3>
+<p><code>#[derive_adhoc(some_crate::MyMacro)]</code>
+applies an exported (<code>pub</code>) template
+defined and exported by <code>some_crate</code>.</p>
+<p>You can import a template from another crate,
+so you can apply it with an unqualified name,
+with <code>use</code>,
+but you have to refer to
+the actual pattern macro name <code>derive_adhoc_template_MyMacro</code>:</p>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">use </span>other_crate::derive_adhoc_template_TheirMacro;
+<span class="attr">#[derive(Adhoc)]
+#[derive_Adhoc(TheirMacro)]
+</span><span class="kw">struct </span>MyStruct { <span class="comment">// ...</span></code></pre></div>
+<h3 id="captured-data-structure-definition-derive_adhoc_driver_type"><a href="#captured-data-structure-definition-derive_adhoc_driver_type">Captured data structure definition <code>derive_adhoc_driver_TYPE</code></a></h3>
+<p>The data structure is captured by defining
+a <code>macro_rules</code> macro called <code>derive_adhoc_driver_TYPE</code>,
+where <code>TYPE</code> is the name of the type
+that <code>#[derive(Adhoc)]</code> is applied to.</p>
+<p>Like all macro_rules macros,
+this lives at the top level of your crate.
+So, sadly, its scoping and importing doesn’t follow
+that of your actual data type <code>TYPE</code>.
+If you want to use it outside the containing module,
+it must be explicitly imported.
+For complicated reasons to do with Rust’s macro name resolution,
+a <code>use crate::*</code> won’t necessarily work.
+You may need to mention it by name explicitly.</p>
+<p>There are also ordering requirements:
+within a crate, the data structure definition
+may need to precede its uses, in crate and module lexical order.
+(This can even be affected by the order of <em>modules</em> within a crate.)</p>
+<h3 id="adhoc-attribute"><a href="#adhoc-attribute"><code>#[adhoc]</code> attribute</a></h3>
+<p>The contents of <code>#[adhoc]</code> attributes are made available
+to templates via the
+<a href="doc_reference/index.html#tmeta-vmeta-fmeta--adhoc-attributes"><code>${Xmeta}</code></a>
+expansions.</p>
+<p>If the template(s) don’t use them, they are ignored.
+<code>derive-adhoc</code> does not impose any namespacing within <code>#[adhoc]</code>:
+all templates see the same adhoc meta attributes.</p>
+<h3 id="exporting-the-driver-for-downstream-crates-templates"><a href="#exporting-the-driver-for-downstream-crates-templates">Exporting the driver for downstream crates’ templates</a></h3>
+<p>To cause the macro embodying the driver struct to be exported,
+write:
+<code>#[derive_adhoc(pub)]</code>.
+The driver can then be derived from in other crates,
+with <code>derive_adhoc! { exporting_crate::DriverStruct: ... }</code>.</p>
+<p>This is a tricky feature,
+which should only be used by experts
+who fully understand the implications.
+It effectively turns the body of the struct into a macro,
+with a brittle API
+and very limited support for namespacing or hygiene.</p>
+<p>See <code>pub mod a_driver</code> in the example file <code>pub-a.rs</code>,
+in the source tree,
+for a fuller discussion of the implications,
+and some advice.</p>
+</div></details></section></div></main></body></html>

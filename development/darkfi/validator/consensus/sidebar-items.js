@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["TXS_CAP"],"fn":["next_block_reward"],"mod":["float_10","pid"],"struct":["Consensus","Fork","Proposal"]};

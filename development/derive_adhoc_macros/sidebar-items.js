@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":["Adhoc"],"macro":["define_derive_adhoc","derive_adhoc","derive_adhoc_expand"]};

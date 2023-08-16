@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Changelog, MSRV policy and cargo features"><title>derive_adhoc::doc_changelog - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="derive_adhoc" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0bdb00d55 2023-08-15)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../../derive_adhoc/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../../derive_adhoc/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2 class="location"><a href="#">Module doc_changelog</a></h2><div class="sidebar-elems"></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">derive_adhoc</a>::<wbr><a class="mod" href="#">doc_changelog</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../../src/derive_adhoc/lib.rs.html#32">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="changelog-msrv-policy-and-cargo-features"><a href="#changelog-msrv-policy-and-cargo-features">Changelog, MSRV policy and cargo features</a></h2><h3 id="cargo-features"><a href="#cargo-features">cargo features</a></h3>
+<p>Features are provided to allow for a build with reduced dependencies.</p>
+<ul>
+<li><code>full</code>: Metafeature.
+Enable all reasonable, non-experimental, features.</li>
+<li><code>case</code>: <a href="../doc_reference/index.html#case-changing">Case conversions</a>,
+using <code>heck</code>.</li>
+<li><code>expect</code>: the <a href="../doc_reference/index.html#expect-items-expect-expr--syntax-check-the-expansion"><code>expect</code></a>
+expansion option for syntax checking.</li>
+<li><code>minimal-1</code>: Minimal feature set.  Must be enabled.</li>
+</ul>
+<p>All of the above features are enabled by default.</p>
+<h3 id="msrv-and-msrv-policy"><a href="#msrv-and-msrv-policy">MSRV and MSRV policy</a></h3>
+<p>The Minimum Supported Rust Version for derive-adhoc is 1.54.</p>
+<p>We expect to increase it cautiously and only with good reason.
+(However, MSRV increase would be a minor version bump.)</p>
+<h3 id="changelog"><a href="#changelog">Changelog</a></h3><h4 id="073"><a href="#073">0.7.3</a></h4><h5 id="added"><a href="#added">Added</a></h5>
+<ul>
+<li><code>approx_equal</code> condition, for testing a form of token stream equivalence.</li>
+</ul>
+<h5 id="fixed"><a href="#fixed">Fixed</a></h5>
+<ul>
+<li>docs: Corrected some internal links to refer to the correct anchors.</li>
+</ul>
+<h5 id="improved"><a href="#improved">Improved</a></h5>
+<ul>
+<li><code>$ttype</code>, <code>$tdeftype</code> and <code>$vtype</code> no longer include <code>::&lt;&gt;</code> or <code>&lt;&gt;</code>
+unless the original toplevel driver definition did.</li>
+</ul>
+<h4 id="072"><a href="#072">0.7.2</a></h4><h5 id="added-1"><a href="#added-1">Added</a></h5>
+<ul>
+<li><code>${Xmeta(...)}</code> within pasting now defaults to <code>... as str</code>,
+so that doesn’t need to be specified each time.</li>
+</ul>
+<h4 id="071"><a href="#071">0.7.1</a></h4><h5 id="fixed-1"><a href="#fixed-1">Fixed</a></h5>
+<ul>
+<li>Fix reference documentation examples for <code>$Xattr</code>.</li>
+</ul>
+<h4 id="070"><a href="#070">0.7.0</a></h4><h5 id="breaking"><a href="#breaking">Breaking</a></h5>
+<ul>
+<li>Reject inner attributes (<code>#![...]</code> and <code>//!...</code>) anywhere in templates:
+these are now reserve for future expansion.
+To resolve: use inner attributes instead.</li>
+</ul>
+<h5 id="added-2"><a href="#added-2">Added</a></h5>
+<ul>
+<li>New <code>${define }</code> and <code>${defcond }</code> facility for reuseable template
+fragments and conditions, to save repetition in templates.  (#14)</li>
+<li>Abbreviated <code>$&lt;...&gt;</code> syntax for <code>${paste ...}</code>.  (#23)</li>
+</ul>
+<h5 id="fixed-2"><a href="#fixed-2">Fixed</a></h5>
+<ul>
+<li>Allow nested pasting when intermediate pastes aren’t valid idents.</li>
+<li>Fixed bugs relating to pasting of keywords and raw identifiers.</li>
+<li>docs: Fixed minor bugs in the reference.</li>
+</ul>
+<h4 id="061"><a href="#061">0.6.1</a></h4><h5 id="fixed-3"><a href="#fixed-3">Fixed</a></h5>
+<ul>
+<li>Fixed a few broken docs links and similar infelicities.</li>
+</ul>
+<h5 id="improved-1"><a href="#improved-1">Improved</a></h5>
+<ul>
+<li>Change dollar-escaping pseudo-keyword to <code>$orig_dollar</code>.
+(Internal change; should not have any user-visible effect.)</li>
+</ul>
+<h4 id="060"><a href="#060">0.6.0</a></h4><h5 id="breaking-1"><a href="#breaking-1">Breaking</a></h5>
+<ul>
+<li><code>$fvis</code> and <code>fvis</code> now refer to the top-level visibility for enums.
+(The previous behaviour is now available from <code>$fdefvis</code>/<code>fdefvis</code>.)</li>
+<li><code>fmeta</code> and <code>vmeta</code> now fail when used outside a field or variant,
+rather than searching through the whole item.
+(<code>$fmeta</code> and <code>$vmeta</code> didn’t search and are unchanged.)</li>
+<li>Actually make structs and unions be treated as having one “variant”.</li>
+<li><code>$tdefgens</code> and <code>$tgens</code> include trailing comma when nonempty,
+as documented and intended.</li>
+</ul>
+<h5 id="added-3"><a href="#added-3">Added</a></h5>
+<ul>
+<li><code>define_derive_adhoc!</code> supports doc comments.</li>
+<li><code>$fdefvis</code>/<code>fdefvis</code> for the textual visibility of a field.</li>
+</ul>
+<h5 id="fixed-4"><a href="#fixed-4">Fixed</a></h5>
+<ul>
+<li>Reference doc example snippets: many errors corrected.</li>
+<li>Added missing cargo dep on <code>syn/extra-traits</code>.</li>
+</ul>
+<h5 id="improved-2"><a href="#improved-2">Improved</a></h5>
+<ul>
+<li>Trailing comma no longer added inside generics in <code>$ttype</code> <code>$vtype</code>.</li>
+<li>Relaxed upper dependency bounds for <code>strum</code>, <code>itertools</code>.</li>
+<li>docs: Reference: example snippets: now tested, and many added.</li>
+<li>docs: Introduction: now has a Table of Contents.</li>
+</ul>
+<h4 id="050"><a href="#050">0.5.0</a></h4><h5 id="breaking-2"><a href="#breaking-2">Breaking</a></h5>
+<ul>
+<li>Case changing: non-snake-case keywords for case change instructions
+abolished (to make room for possible future reservation of
+non-snake-case keywords as user-defined ones).  Change the case
+of the keyword to snake case.</li>
+</ul>
+<h5 id="improved-3"><a href="#improved-3">Improved</a></h5>
+<ul>
+<li>Documentation: tidying and a few more examples.</li>
+</ul>
+<h4 id="040"><a href="#040">0.4.0</a></h4><h5 id="breaking-3"><a href="#breaking-3">Breaking</a></h5>
+<ul>
+<li><code>${paste }</code> no longer allows non-string literals in its content.</li>
+<li>Invalid literal content within <code>${paste }</code> is now rejected
+during parsing, so even if that part of the template isn’t expanded.</li>
+<li><code>${Xmeta... as lit}</code> is abolished, in favour of <code>... as str</code>
+(which has more consistent semantics).</li>
+<li><code>${Xmeta}</code> without <code>as</code> is no longer allowed in <code>${paste ...}</code>.</li>
+<li>In <code>#[adhoc(attr=&quot;VALUE&quot;)]</code>, now only <em>string</em> literals are allowed.</li>
+</ul>
+<h5 id="added-4"><a href="#added-4">Added</a></h5>
+<ul>
+<li><code>${paste }</code> and <code>${CASE_CHANGE ...}</code> can now be nested,
+either (or both) ways round.</li>
+<li><code>${Xmeta... as str}</code>, <code>${Xmeta... as tokens}</code>.</li>
+</ul>
+<h5 id="improved-4"><a href="#improved-4">Improved</a></h5>
+<ul>
+<li>Better error messages when <code>${paste }</code> produces a bad identifier.</li>
+<li>docs: Minor improvements to reference.</li>
+<li>internal: CI tests improved and extended</li>
+<li>internal: cleanups, and internal docs improved.</li>
+</ul>
+<h4 id="030"><a href="#030">0.3.0</a></h4><h5 id="breaking-4"><a href="#breaking-4">Breaking</a></h5>
+<ul>
+<li>cargo features introduced.
+Currently, all enabled by default -
+no breakage if default features enabled.
+<ul>
+<li>Case conversion (and <code>heck</code> dependency) now behind <code>case</code>.</li>
+<li><code>minimal-1</code> introduced; it must be enabled.</li>
+</ul>
+</li>
+</ul>
+<h5 id="added-5"><a href="#added-5">Added</a></h5>
+<ul>
+<li>Expansion options facility</li>
+<li><code>expect items</code>, <code>expect expr</code> option, for improved errors
+when template expands to invalid Rust syntax.
+(<code>expect</code> cargo feature.)</li>
+<li><code>for struct</code>, <code>for enum</code>, <code>for union</code> option,
+for improved errors due to misue of a template.</li>
+<li><code>dbg</code> option, for dumping template expansions to compiler stderr.</li>
+<li><code>$dbg_all_keywords</code> keyword, for dumping keyword expansions.</li>
+<li><code>full</code> and <code>minimal-1</code> cargo meta features.</li>
+</ul>
+<h5 id="improved-5"><a href="#improved-5">Improved</a></h5>
+<ul>
+<li>docs: Much expanded and improved tutorial (still a work in progress).</li>
+<li>docs: Various corrections to reference docs.</li>
+<li>docs: Reference documentation retitled and module renamed.</li>
+<li>error handling: Better messages from certain situations involving
+multiple (incompatible) derive-adhoc versions.</li>
+<li>tests: Made less fragile (more pinning of test dependencies).</li>
+<li>tests: Improved CI checks on documentation, TODOs, etc.</li>
+<li>internal: new HACKING.md file for helping develop derive-adhoc.</li>
+</ul>
+<h4 id="022"><a href="#022">0.2.2</a></h4><h5 id="fixed-future-compatibility"><a href="#fixed-future-compatibility">Fixed (future compatibility)</a></h5>
+<ul>
+<li>Pinned dependency from <code>derive-adhoc</code> to <code>derive-adhoc-macros</code>.</li>
+<li>Handling of certain supposedly-future-compatible options fixed.
+(“future driver options” argument to <code>d_a_t_T</code>).</li>
+</ul>
+<h5 id="improved-6"><a href="#improved-6">Improved</a></h5>
+<ul>
+<li>Better error messages with usupported combinations of features
+with mixed derive-adhoc versions.  #10.</li>
+<li>Compatibility with derive-adhoc 0.2.0 tested in CI.</li>
+</ul>
+<h4 id="021"><a href="#021">0.2.1</a></h4><h5 id="fixed-5"><a href="#fixed-5">Fixed</a></h5>
+<ul>
+<li><code>$vpat</code> expansion includes necessary post-field comma.  #15.</li>
+<li>Docs typo fixes.</li>
+</ul>
+<h5 id="improved-7"><a href="#improved-7">Improved</a></h5>
+<ul>
+<li>docs: Much expanded tutorial (still a work in progress)</li>
+</ul>
+<h4 id="020"><a href="#020">0.2.0</a></h4><h5 id="breaking-5"><a href="#breaking-5">Breaking</a></h5>
+<ul>
+<li><code>$tgens</code> no longer includes defaults for generics.</li>
+<li><code>$Xattrs</code> by default
+outputs all attributes except derive-adhoc ones,
+rather than nothing (breaking bugfix).</li>
+<li><code>$vmeta</code> for a struct (not enum) processes top-level attributes,
+rather than imagining that there are no variant/value attributes.</li>
+<li>Fixed hygiene (span) for <code>${paste }</code>;
+now it’s consistently that of the template
+(but disagrees with the hygiene span of <code>$fname</code>).</li>
+</ul>
+<h5 id="added-6"><a href="#added-6">Added</a></h5>
+<ul>
+<li><code>$fpatname</code> <code>$vpat</code> <code>$vtype</code>, for value matching and construction</li>
+<li><code>$fvis</code> <code>$tvis</code>, for visibility (also as booleans)</li>
+<li><code>is_struct</code> <code>is_union</code>
+<code>v_is_unit</code> <code>v_is_tuple</code> <code>v_is_named</code>,
+conditions for driver shape.</li>
+<li><code>$tdefkwd</code> <code>$tdeftype</code> <code>$tdefvariants</code> <code>$vdefbody</code>
+<code>$fdefine</code> <code>$tdefgens</code>,
+for defining derived types,</li>
+<li><code>$select1</code>, exactly-one conditional</li>
+<li>Support exporting a template to other crates,
+and <code>$crate</code> expansion for referring to template crate items.</li>
+<li>Support exporting a driver to other crates
+(rather hazardous).</li>
+</ul>
+<h5 id="fixed-6"><a href="#fixed-6">Fixed</a></h5>
+<ul>
+<li>Do not claim that <code>$ttype</code> includes any leading path elements.</li>
+<li><code>$</code> in templates always has proper span for error reporting</li>
+<li><code>$</code> is properly escaped in drivers</li>
+<li><code>$Xmeta</code> can expand to arbitrary tokens from an attribute value</li>
+</ul>
+<h5 id="improved-8"><a href="#improved-8">Improved</a></h5>
+<ul>
+<li>docs: New tutorial (still a work in progress)</li>
+<li>docs: Template syntax reference overhauled</li>
+<li>Many other minor improvements</li>
+<li>New tests/examples</li>
+</ul>
+<h4 id="010"><a href="#010">0.1.0</a></h4>
+<ul>
+<li>First publicly advertised release.
+Much important documentation and
+many important features still missing.</li>
+</ul>
+<h4 id="001"><a href="#001">0.0.1</a></h4>
+<ul>
+<li>Initial release to crates.io, not widely advertised.</li>
+</ul>
+</div></details></section></div></main></body></html>

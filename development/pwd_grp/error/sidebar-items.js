@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["NonUtf8Error","TooLargeBufferRequiredError","UnexpectedNullPointerError"],"type":["NulError"]};

@@ -1,0 +1,946 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Introduction to derive-adhoc"><title>derive_adhoc::doc_introduction - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="derive_adhoc" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0bdb00d55 2023-08-15)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../../derive_adhoc/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../../derive_adhoc/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2 class="location"><a href="#">Module doc_introduction</a></h2><div class="sidebar-elems"></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">derive_adhoc</a>::<wbr><a class="mod" href="#">doc_introduction</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../../src/derive_adhoc/lib.rs.html#23">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="introduction-to-derive-adhoc"><a href="#introduction-to-derive-adhoc">Introduction to derive-adhoc</a></h2>
+<p><code>derive-adhoc</code> allows you to write <code>#[derive]</code> macros
+– macros driven by Rust data structures -
+by writing templates in a fairly straightforward template language.</p>
+<!--##toc##-->
+<ul>
+<li><a href="#getting-started-with-derive_adhoc">Getting started with <code>derive_adhoc</code>.</a>
+<ul>
+<li><a href="#exporting-templates">Exporting templates</a></li>
+<li><a href="#if-youre-only-deriving-once">If you’re only deriving once…</a></li>
+</ul>
+</li>
+<li><a href="#a-brief-tutorial-how-to-write-your-own-clone">A brief tutorial: How to write your own Clone</a>
+<ul>
+<li><a href="#simple-templates-fields-and-repetition">Simple templates: fields and repetition</a></li>
+<li><a href="#making-myclone-apply-to-generics">Making MyClone apply to generics</a></li>
+<li><a href="#making-myclone-apply-conditionally">Making MyClone apply conditionally</a></li>
+<li><a href="#deriving-for-enumerations">Deriving for enumerations</a></li>
+</ul>
+</li>
+<li><a href="#some-more-advanced-topics">Some more advanced topics</a>
+<ul>
+<li><a href="#transforming-names-and-strings">Transforming names and strings</a></li>
+</ul>
+</li>
+<li><a href="#another-example-defining-a-constructor-function">Another example: Defining a constructor function.</a>
+<ul>
+<li><a href="#marking-a-templates-limitations">Marking a template’s limitations</a></li>
+<li><a href="#working-with-visibility">Working with visibility</a></li>
+<li><a href="#using-attributes-to-make-a-template-take-arguments">Using attributes to make a template take arguments</a></li>
+<li><a href="#getting-started-with-conditionals">Getting started with conditionals</a></li>
+<li><a href="#more-complicated-conditionals">More complicated conditionals</a></li>
+</ul>
+</li>
+<li><a href="#other-features">Other features</a></li>
+</ul>
+<h3 id="getting-started-with-derive_adhoc"><a href="#getting-started-with-derive_adhoc">Getting started with <code>derive_adhoc</code>.</a></h3>
+<p>There are two parts to using <code>derive_adhoc</code>:
+specifying <em>templates</em> that you can use to derive new features for your
+structs and enums
+and then <em>applying</em> those templates to your types.</p>
+<p>To define a template, you use <code>define_derive_adhoc!</code>, as in</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>derive_adhoc::define_derive_adhoc;
+
+<span class="macro">define_derive_adhoc! </span>{
+    NamePrinter =
+
+    <span class="kw">impl </span><span class="macro-nonterminal">$ttype </span>{
+        <span class="kw">pub fn </span>print_name() {
+            <span class="macro">println!</span>(<span class="string">&quot;The name of this type is {}&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$ttype</span>));
+        }
+    }
+}</code></pre></div>
+<p>This is a very simple template: it uses a single expansion: <code>$ttype</code>.
+(We’ll get into more expansions, and more useful examples, later on.
+For now, all you need to know
+is that <code>$ttype</code> expands to the type
+on which you’re applying your template.)</p>
+<p>Later on, you can apply <code>NamePrinter</code> to your own type, as in:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>derive_adhoc::Adhoc;
+
+<span class="attr">#[derive(Clone, Debug, Adhoc)]
+#[derive_adhoc(NamePrinter)]
+</span><span class="kw">pub struct </span>MyStruct;
+
+MyStruct::print_name();</code></pre></div>
+<h4 id="exporting-templates"><a href="#exporting-templates">Exporting templates</a></h4>
+<p>But now suppose that you want to expose your template,
+so that people can use it from any crate.</p>
+<p>To do this, you use <code>pub</code> before the name of your macro.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">pub trait </span>NamePrinter {
+    <span class="kw">fn </span>print_name();
+}
+
+<span class="macro">derive_adhoc::define_derive_adhoc! </span>{
+    <span class="doccomment">/// Derives `NamePrinter`, providing `print_name`
+    </span><span class="kw">pub </span>NamePrinter =
+    <span class="kw">impl </span><span class="macro-nonterminal">$crate::NamePrinter </span><span class="kw">for </span><span class="macro-nonterminal">$ttype </span>{
+        <span class="kw">fn </span>print_name() {
+            <span class="macro">println!</span>(<span class="string">&quot;The name of this type is {}&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$ttype</span>));
+        }
+    }
+}</code></pre></div>
+<p>Note that this time,
+we’ve defined <code>NamePrinter</code> as a trait,
+and we’ve changed our template to refer to that trait as
+<code>$crate::NamePrinter</code>.
+The <code>$crate</code> syntax will expand to the name of the crate
+in which our template was defined,
+so that when later we expand this template,
+it can find the right template.</p>
+<p>We’ve also added a doc comment,
+which will appear in the public API documentation for our crate.</p>
+<p>Additionally, we need to re-export <code>derive_adhoc</code>
+from our crate, so that users get the correct version:</p>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="comment">// you might want to apply #[doc(hidden)] to this.
+</span><span class="kw">pub use </span>derive_adhoc;</code></pre></div>
+<p>Now, when somebody wants to use our template,
+they can do it like this:</p>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="comment">// Let&#39;s pretend our crate is called name_printer.
+</span><span class="kw">use </span>name_printer::{
+    <span class="comment">// This is the trait we defined...
+    </span>NamePrinter,
+    <span class="comment">// This is the macro that makes our template work.
+    // (We might come up with a better syntax for this later).
+    </span>derive_adhoc_template_NamePrinter.
+};
+<span class="kw">use </span>derive_adhoc::Adhoc;
+
+<span class="attr">#[derive(Adhoc)]
+#[derive_adhoc(NamePrinter)]
+</span><span class="kw">struct </span>TheirStructure {
+    <span class="comment">// ...
+</span>}</code></pre></div>
+<h4 id="if-youre-only-deriving-once"><a href="#if-youre-only-deriving-once">If you’re only deriving once…</a></h4>
+<p>If you want, you can apply a template to an existing type
+without having to name that template.
+You might want to do this if you have a template
+that you only want to apply to a single struct,
+and so you don’t want to bother naming it.</p>
+<p>Supposing that you wanted to apply the template above to <code>MyStruct</code>
+and <code>MyStruct</code> alone,
+you could have said:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>derive_adhoc::{Adhoc, derive_adhoc};
+
+<span class="attr">#[derive(Clone, Debug, Adhoc)]
+</span><span class="kw">pub struct </span>MyStruct;
+
+<span class="macro">derive_adhoc!</span>{
+    MyStruct:
+
+    <span class="kw">impl </span><span class="macro-nonterminal">$ttype </span>{
+        <span class="kw">pub fn </span>print_name() {
+            <span class="macro">println!</span>(<span class="string">&quot;The name of this type is {}&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$ttype</span>));
+        }
+    }
+}</code></pre></div>
+<p>Of course, that’s not so useful yet.
+In this case, it would have been easier just to write
+<code>impl MyStruct { pub fn print_name() { ... } }</code>.
+But soon, we’ll see how to write more interesting templates,
+and how to use them to create much more interesting code.</p>
+<p>The rest of this document will focus
+on how to use derive_adhoc’s template features
+to your fullest advantage.
+If you’re the kind of person who wants to skip
+straight to the reference manual,
+you can find it <a href="../doc_reference/index.html" title="mod derive_adhoc::doc_reference">over here</a>.
+(It’s still pretty terse, but we’re working on that.)</p>
+<h3 id="a-brief-tutorial-how-to-write-your-own-clone"><a href="#a-brief-tutorial-how-to-write-your-own-clone">A brief tutorial: How to write your own Clone</a></h3>
+<p>For the next few sections, for a toy example,
+we’ll be using <code>derive_adhoc</code> to define
+our own version of <code>derive(Clone)</code>.
+At first, it will be very simple;
+later on, we’ll add a few features
+that Rust’s <code>derive(Clone)</code> doesn’t have.</p>
+<blockquote>
+<p>Aside:</p>
+<p>We’ve picked a simple trait to derive on purpose,
+so that we can focus on the features of <code>derive_adhoc</code>
+without the additional complexity
+of introducing an unfamiliar trait as well.</p>
+<p>Please let us know if this approach works for you!
+We’re learning how to explain these concepts
+as we go along.</p>
+</blockquote>
+<h4 id="simple-templates-fields-and-repetition"><a href="#simple-templates-fields-and-repetition">Simple templates: fields and repetition</a></h4>
+<p>Let’s imagine we had to write Clone from scratch for a simple structure
+like this:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">struct </span>GiftBasket {
+   n_apples: u8,
+   n_oranges: u8,
+   given_from: <span class="prelude-ty">Option</span>&lt;String&gt;,
+   given_to: String,
+}</code></pre></div>
+<p>We’d probably write something like this:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>
+<span class="kw">impl </span>Clone <span class="kw">for </span>GiftBasket {
+    <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            n_apples: <span class="self">self</span>.n_apples.clone(),
+            n_oranges: <span class="self">self</span>.n_oranges.clone(),
+            given_from: <span class="self">self</span>.given_from.clone(),
+            given_to: <span class="self">self</span>.given_to.clone()
+        }
+    }
+}</code></pre></div>
+<p>(In reality,
+since <code>n_apples</code> and <code>n_oranges</code> both implement <code>Copy</code>,
+you wouldn’t actually call <code>clone()</code> on them.
+But since the compiler knows their types,
+it should be smart enough to
+optimize the Clone away for you.)</p>
+<p>If you imagine generalizing this
+to any simple struct struct with named fields,
+you might come up with a pseudocode template
+like this one:</p>
+<div class="example-wrap"><pre class="language-text,ignore"><code>impl Clone for ⟪Your struct⟫ {
+    fn clone(&amp;self) -&gt; Self {
+        Self {
+            for each field:
+                ⟪field name⟫: self.⟪field name⟫.clone(),
+        }
+    }
+}
+</code></pre></div>
+<p>And here’s how that pseudocode translates into
+a <code>derive_adhoc</code> template:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>derive_adhoc::define_derive_adhoc;
+
+<span class="macro">define_derive_adhoc! </span>{
+    MyClone =
+
+    <span class="kw">impl </span>Clone <span class="kw">for </span><span class="macro-nonterminal">$ttype </span>{
+        <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+            <span class="self">Self </span>{
+                $( <span class="macro-nonterminal">$fname </span>: <span class="self">self</span>.<span class="macro-nonterminal">$fname</span>.clone() , )
+            }
+        }
+    }
+}</code></pre></div>
+<p>Let’s look at that template.  You’ve already seen <code>$ttype</code>: it expands
+to the type on which you are applying the macro.  There are two new
+pieces of syntax here, though: <code>$( ... )</code> and <code>$fname</code>.</p>
+<p>In <code>derive_adhoc</code> templates, <code>$( ... )</code>  denotes repetition:
+it repeats what is inside it
+an “appropriate” number of times.
+(We’ll give a definition of “appropriate” later on.)
+Since we want to clone every field in our struct,
+we are repating the <code>field: self.field.clone() ,</code>
+part of our implementation.</p>
+<p>The <code>$fname</code> expansion means “the name of a field”.
+Which field?
+Since <code>$fname</code> occurs inside <code>$( ... )</code>,
+we will repeat the body of the <code>$( ... )</code> once for each
+field, and expand <code>$fname</code>
+to the name of a different field each time.</p>
+<p>(Again, more advanced repetition is possible;
+there’s more to come.)</p>
+<blockquote>
+<h4 id="on-naming"><a href="#on-naming">On naming</a></h4>
+<p>Many <code>derive_adhoc</code> expansions names start with
+<code>t</code> for <strong>top-level</strong>
+(whatever you are applying the template to),
+<code>v</code> for <strong>variant</strong>
+(a variant of an <code>enum</code>),
+or <code>f</code> for <strong>field</strong>
+(a single field of a struct or variant).</p>
+<p>So far, you’ve seen <code>$ttype</code> for “top-level type” and <code>$fname</code> for
+“field name”.</p>
+<p>(We say “top-level” instead of “struct”:
+later on, we’ll be showing you how to apply
+derive_adhoc to <code>enums</code>.)</p>
+<p>Many <code>derive_adhoc</code> expansions end with
+a short identifier for what they contain.
+For example, <code>$tname</code> is the name of a top-level type,
+<code>$vname</code> is the name of a variant,
+and <code>$fname</code> is the name of a field.
+Whenever possible, we have tried to use the same
+identifier for the <code>t</code>, <code>v</code>, and <code>f</code> cases,
+whenever it is logical.</p>
+</blockquote>
+<h5 id="will-myclone-apply-to-other-kinds-of-struct"><a href="#will-myclone-apply-to-other-kinds-of-struct">Will MyClone apply to other kinds of struct?</a></h5>
+<p>Rust defines several kinds of struct:
+structs with fields (<code>struct Foo {...};</code>),
+tuple structs (<code>struct Foo(...);</code>),
+and unit structs (<code>struct Foo;</code>).</p>
+<p>If you try to apply the <code>MyClone</code> template above
+to a struct with fields,
+it will work just fine.
+But with a tuple struct, or a unit struct,
+you might expect it to fail.</p>
+<p>Surprisingly, it will still work fine!
+This isn’t because of any clever trickery
+from <code>derive_adhoc</code>:
+it’s just how Rust works.
+When you use it on tuple or unit structs,
+the <code>MyClone</code> template we wrote above will expand
+to code like this…
+which happens to be valid syntax!</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">struct </span>TupleStruct(String, <span class="prelude-ty">Option</span>&lt;String&gt;);
+<span class="kw">impl </span>Clone <span class="kw">for </span>TupleStruct {
+    <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            <span class="number">0</span>: <span class="self">self</span>.<span class="number">0</span>.clone(),
+            <span class="number">1</span>: <span class="self">self</span>.<span class="number">1</span>.clone(),
+        }
+    }
+}
+
+<span class="kw">struct </span>UnitStruct;
+<span class="kw">impl </span>Clone <span class="kw">for </span>UnitStruct {
+    <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+        }
+    }
+}</code></pre></div>
+<p>This will be a common theme in what follows:
+Rust often lets you use a slightly unidiomatic syntax
+so that you can handle many different cases
+in the same way.</p>
+<h4 id="making-myclone-apply-to-generics"><a href="#making-myclone-apply-to-generics">Making MyClone apply to generics</a></h4>
+<p>But here’s a structure where our current <code>MyClone</code> implementation
+will fall flat:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">struct </span>MyItems&lt;T:Clone, U&gt;
+    <span class="kw">where </span>U: Clone + Debug
+{
+    things: Vec&lt;T&gt;,
+    items: Vec&lt;U&gt;
+}</code></pre></div>
+<p>When we go to expand the template, it will generate something like:</p>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">impl </span>Clone <span class="kw">for </span>MyItems { ... }</code></pre></div>
+<p>That isn’t valid!  We need to use the generic parameters, like so:</p>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">impl</span>&lt;T:Clone, U&gt; Clone <span class="kw">for </span>MyItems&lt;T,U&gt; 
+    <span class="kw">where </span>U: Clone+Debug
+{ ... }</code></pre></div>
+<p>We can expand our <code>MyClone</code> definition to look that way:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="macro">define_derive_adhoc! </span>{
+    MyClone =
+
+    <span class="kw">impl</span>&lt;<span class="macro-nonterminal">$tgens</span>&gt; Clone <span class="kw">for </span><span class="macro-nonterminal">$ttype
+    </span><span class="kw">where </span><span class="macro-nonterminal">$twheres
+    </span>{
+        <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+            <span class="self">Self </span>{
+                $( <span class="macro-nonterminal">$fname </span>: <span class="self">self</span>.<span class="macro-nonterminal">$fname</span>.clone() , )
+            }
+        }
+    }
+}</code></pre></div>
+<p>Here we meet two new expansions.
+<code>$tgens</code> (“top-level generics”) becomes
+the generic parameters as declared on the top-level type.
+(In our case, that’s <code>$T:Clone, U</code>.)
+<code>$twheres</code> (“top-level where clauses”) becomes
+the <code>where</code> constraints= as declared on the top-level type.
+(In our case, that’s <code>U: Clone+Debug</code>.)</p>
+<p>Note that <code>$ttype</code> expands to the top-level <em>type</em>:
+that’s now <code>MyItems&lt;T,U&gt;</code>,
+which is what we want.
+If we had wanted only <code>MyItems</code>,
+we would say <code>$tname</code> instead.</p>
+<p>Will this template still work for non-parameterized types?
+Again, yes!
+To Rust, this syntax is perfectly fine:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">struct </span>Simple {
+    a: String
+}
+<span class="kw">impl</span>&lt;&gt; Clone <span class="kw">for </span>Simple
+<span class="kw">where
+</span>{
+    <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            a: <span class="self">self</span>.a.clone(),
+        }
+    }
+}</code></pre></div>
+<h4 id="making-myclone-apply-conditionally"><a href="#making-myclone-apply-conditionally">Making MyClone apply conditionally</a></h4>
+<p>Now, for the first time, we will make MyClone do something
+that Rust’s <code>#[derive(Clone)]</code> does not:
+it will apply only when the fields of a struct are <code>Clone</code>.</p>
+<p>For example, suppose have a struct like this:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">struct </span>Indirect&lt;T&gt;(Arc&lt;T&gt;, u16);</code></pre></div>
+<p>If you try to derive <code>Clone</code> on it,
+the compiler will generate code something like this:</p>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">impl</span>&lt;T: Clone&gt; Clone <span class="kw">for </span>Indirect&lt;T&gt; { ... }</code></pre></div>
+<p>But that <code>T: Clone</code> constraint isn’t necessary: <code>Arc&lt;T&gt;</code> always
+implements <code>Clone</code>, so your struct could be clone unconditionally.</p>
+<p>But using <code>derive_adhoc</code>,
+you can define a template
+that derives <code>Clone</code> only for the cases
+where the <em>actual</em> required constraints are met:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="macro">define_derive_adhoc! </span>{
+    MyClone =
+
+    <span class="kw">impl</span>&lt;<span class="macro-nonterminal">$tgens</span>&gt; Clone <span class="kw">for </span><span class="macro-nonterminal">$ttype
+    </span><span class="kw">where </span><span class="macro-nonterminal">$twheres
+          </span>$( <span class="macro-nonterminal">$ftype </span>: Clone , )
+    {
+        <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+            <span class="self">Self </span>{
+                $( <span class="macro-nonterminal">$fname </span>: <span class="self">self</span>.<span class="macro-nonterminal">$fname</span>.clone() , )
+            }
+        }
+    }
+}</code></pre></div>
+<p>Here, we are using <code>$ftype</code>, the type of a field.
+Since we’re repeating it with <code>$( ... )</code>,
+we are requiring every field to be <code>Clone</code>.</p>
+<p>Will this work with non-generic fields,
+or if the same field is used more than once?
+Once again, yes!
+To Rust, this is a perfectly valid example:</p>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">impl</span>&lt;T&gt; Clone <span class="kw">for </span>Direct
+<span class="kw">where
+    </span>T: Clone,
+    T: Clone,
+    String: Clone
+{
+    ...
+}</code></pre></div>
+<blockquote>
+<p>This time,
+<code>derive_adhoc</code> has exactly <em>one</em> piece cleverness at work.
+It makes sure that either <code>$twheres</code> is empty,
+or that it ends with a comma.
+That way, your template won’t expand to something like
+<code>where U: Debug + Clone T: Clone</code>
+(which is a syntax eror)
+or soemthing like
+<code>where ,</code>
+(which is also a syntax error).</p>
+</blockquote>
+<h4 id="deriving-for-enumerations"><a href="#deriving-for-enumerations">Deriving for enumerations</a></h4>
+<p>At this point, you’ve probably noticed
+that we’ve defined <code>MyClone</code> to apply to <code>struct</code>s only,
+but it won’t (yet) work on <code>enum</code>s.
+Let’s fix that!</p>
+<p>Suppose that we have enumeration defined like this:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">enum </span>AllTypes {
+    NoData,
+    Tuple(u8, u16),
+    Struct { a: String, b: String }
+}</code></pre></div>
+<p>We want to make sure that
+MyClone can recognize and re-construct
+each of the three variants.</p>
+<p>We can do that as follow
+(For simplicity, we’re going to ignore generics for now.)</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="macro">define_derive_adhoc! </span>{
+    MyClone =
+
+    <span class="kw">impl </span>Clone <span class="kw">for </span><span class="macro-nonterminal">$ttype
+    </span>{
+        <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+            <span class="kw">match </span><span class="self">self </span>{
+                $(
+                    <span class="macro-nonterminal">$vpat </span>=&gt; <span class="macro-nonterminal">$vtype </span>{
+                        $(
+                            <span class="macro-nonterminal">$fname</span>: <span class="macro-nonterminal">$fpatname</span>.clone(),
+                        )
+                    },
+                )
+            }
+        }
+    }
+}</code></pre></div>
+<p>Note that now we have two levels of nested repetition.
+First, we match once for each variant.
+(This is at the <code>$vpat</code> and <code>$vtype</code> level.)
+Then we match once for each field of each variant.
+(This is at the <code>$fname</code> and <code>$fpatname</code> level.)</p>
+<p>Let’s go over the new expansions here.
+First, we have <code>$vpat</code>:
+that expands to a pattern that can match and deconstruct
+a single variant.
+Then, we have <code>$vtype</code>:
+that’s the type of the variant,
+suitable for use as a constructor.
+Then, inside the variant, we have <code>$fname</code>:
+that’s our field name, which we’ve seen it before.
+Finally, we have <code>$fpatname</code>:
+that is the name of the variable that we used for this field
+in the pattern that deconstructed it.</p>
+<p>When we apply <code>MyClone</code> to our enumeration,
+we get something like this:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">impl </span>Clone <span class="kw">for </span>AllTypes {
+    <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+        <span class="kw">match </span><span class="self">self </span>{
+            AllTypes::NoData {} =&gt; AllTypes::NoData {},
+            AllTypes::Tuple {
+                <span class="number">0</span>: f_0,
+                <span class="number">1</span>: f_1,
+            } =&gt; AllTypes::Tuple {
+                <span class="number">0</span>: f_0.clone(),
+                <span class="number">1</span>: f_1.clone()
+            },
+            AllTypes::Struct {
+                a: f_a,
+                b: f_b,
+            } =&gt; AllTypes::Struct {
+                a: f_a.clone(),
+                b: f_b.clone()
+            },
+        }
+    }
+}</code></pre></div>
+<p>Note that our template above will still work fine on a regular struct,
+even though it’s written for an <code>enum</code>.
+If we apply <code>MyClone</code> above
+to <code>struct Example { a: u8, b: String }</code>,
+we get this:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">impl </span>Clone <span class="kw">for </span>Example {
+    <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+        <span class="kw">match </span><span class="self">self </span>{
+            Example {
+                a: f_a,
+                b: f_b,
+            } =&gt; Example {
+                a: f_a.clone(),
+                b: f_b.clone(),
+            }
+        }
+    }
+}</code></pre></div>
+<p>So (in this case at least)
+we were able to write a single template expansion
+that worked for both <code>struct</code>s and enum`s.</p>
+<h5 id="putting-the-generics-back-into-our-enumeration-friendly-template"><a href="#putting-the-generics-back-into-our-enumeration-friendly-template">Putting the generics back into our enumeration-friendly template</a></h5>
+<p>Now let’s see how it works when we try to handle generics again.
+(It’s surprisingly straightforward!)</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="macro">define_derive_adhoc! </span>{
+    MyClone =
+
+    <span class="kw">impl</span>&lt;<span class="macro-nonterminal">$tgens</span>&gt; Clone <span class="kw">for </span><span class="macro-nonterminal">$ttype
+    </span><span class="kw">where </span>$( <span class="macro-nonterminal">$ftype</span>: Clone, )
+          <span class="macro-nonterminal">$twheres
+    </span>{
+        <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+            <span class="kw">match </span><span class="self">self </span>{
+                $(
+                    <span class="macro-nonterminal">$vpat </span>=&gt; <span class="macro-nonterminal">$vtype </span>{
+                        $(
+                            <span class="macro-nonterminal">$fname</span>: <span class="macro-nonterminal">$fpatname</span>.clone(),
+                        )
+                    },
+                )
+            }
+        }
+    }
+}</code></pre></div>
+<p>Note that when we define our additional <code>where</code> clauses,
+we don’t have to specify separate of repetition
+for variants and fields:
+if we just have <code>$ftype</code> in a top-level repetition,
+<code>derive_adhoc</code> will iterate over all fields in all variants.</p>
+<h3 id="some-more-advanced-topics"><a href="#some-more-advanced-topics">Some more advanced topics</a></h3>
+<p>Now that we’ve our first basic example under our belt,
+let’s look at some other things that <code>derive_adhoc</code> can do.</p>
+<h4 id="transforming-names-and-strings"><a href="#transforming-names-and-strings">Transforming names and strings</a></h4>
+<p>Often, it’s useful to define new identifiers
+based on existing ones,
+or to convert identifiers into strings.</p>
+<p>You <em>could</em> use the existing <a href="https://docs.rs/paste/latest/paste/"><code>paste</code></a> crate for this,
+or you can use a native facility provided by <code>derive_adhoc</code>.</p>
+<p>For example, suppose that you want
+to define a template that makes a “discriminant” type
+for your enumerations.
+You want the new type to be named <code>FooDiscriminant</code>,
+where <code>Foo</code> is the name of your existing type.
+While you’re at it, you want to add an <code>is_</code> function
+to detect each variant.</p>
+<p>You can do that like this:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="macro">define_derive_adhoc! </span>{
+    Discriminant =
+
+    <span class="attr">#[derive(Copy,Clone,Eq,PartialEq,Debug)]
+    </span><span class="kw">enum </span>${paste <span class="macro-nonterminal">$tname </span>Discriminant} {
+        $(
+            <span class="macro-nonterminal">$vname</span>,
+        )
+    }
+
+    <span class="kw">impl</span>&lt;<span class="macro-nonterminal">$tgens</span>&gt; <span class="macro-nonterminal">$ttype </span><span class="kw">where </span><span class="macro-nonterminal">$twheres </span>{
+       <span class="kw">fn </span>discriminant(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ${paste <span class="macro-nonterminal">$tname </span>Discriminant} {
+          <span class="kw">match </span><span class="self">self </span>{
+              $(
+                  <span class="macro-nonterminal">$vpat </span>=&gt; ${paste <span class="macro-nonterminal">$tname </span>Discriminant}::<span class="macro-nonterminal">$vname</span>,
+              )
+          }
+        }
+
+        $(
+            <span class="kw">fn </span>${paste is_ ${snake_case <span class="macro-nonterminal">$vname</span>}} (<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+                <span class="self">self</span>.discriminant() ==
+                    ${paste <span class="macro-nonterminal">$tname </span>Discriminant} ::<span class="macro-nonterminal">$vname
+            </span>}
+        )
+    }
+}</code></pre></div>
+<p>Here we see a couple of new constructs.</p>
+<p>First, we’re using <code>${paste}</code>
+to glue several identifiers together into one.
+When we say <code>${paste $tname Discriminant}</code>,
+we are generating a new identifier from <code>$tname</code>
+(the type name)
+and the word Discriminant.
+So if the type name is <code>Foo</code>,
+the new type will be called <code>FooDiscriminant</code>.</p>
+<p>Second, we’re using <code>${snake_case}</code>
+to transform an identifier into <code>snake_case</code>
+(that is, lowercase words separated by underscores).
+We use this to turn the name of each variant (<code>$vname</code>)
+into a name suitable for use in a function name.
+So if a variant is called <code>ExampleVariant</code>,
+<code>${snake_case $vname}</code>  will be <code>example_variant</code>,
+and <code>${paste is_ ${snake_case $vname}}</code> will be
+<code>is_example_variant</code>.</p>
+<p>There are other case-changers:</p>
+<ul>
+<li><code>${pascal_case my_ident}</code> becomes <code>MyIdent</code>.
+You can also write this as
+<code>${upper_camel_case ..}</code>.</li>
+<li><code>${lower_camel_case my_ident}</code> becomes <code>myIdent</code>.</li>
+<li><code>${shouty_snake_case MyIdent}</code> becomes <code>MY_IDENT</code>.</li>
+<li><code>${snake_case MyIdent}</code> becomes <code>my_ident</code>, as you’ve already seen.</li>
+</ul>
+<p>You can abbreviate <code>${paste ...}</code> as <code>$&lt;...&gt;</code>.</p>
+<!--
+  TODO: Should we show `$<...>` instead of `${paste ...}`?
+  Maybe we should principally advertise `$<...>`, everywhere,
+  and de-emphasise `${paste ...}`.
+ -->
+<h5 id="a-note-on-syntax"><a href="#a-note-on-syntax">A note on syntax</a></h5>
+<p>In this last section,
+you’ve seen a new syntax for the first time.
+Both <code>${paste ident ident..}</code> and <code>${snake_case ident}</code>
+are special cases of the following meta-syntax,
+which <code>derive_adhoc</code> uses everywhere:</p>
+<p><code>${KEYWORD ARGS.. }</code></p>
+<p>In fact, if you want,
+you can use this format
+for all of the expansion macros you have already seen:
+<code>$ttype</code> is just a shortened form for <code>${ttype}</code>,
+<code>$fname</code> is just <code>${fname}</code>,
+and so on.</p>
+<p>Some keywords,
+including some of those we’ve already seen,
+can take named arguments.
+The syntax for this is:</p>
+<p><code>${KEYWORD ARGNAME=VALUE ARGNAME=VALUE...}</code></p>
+<blockquote>
+<p>For example, we can use this syntax to give optional arguments to <code>$vpat</code>;
+see the template syntax reference for more information.</p>
+</blockquote>
+<p>If you ever need to write a literal <code>$</code>,
+you can write <code>$$</code>.</p>
+<h3 id="another-example-defining-a-constructor-function"><a href="#another-example-defining-a-constructor-function">Another example: Defining a constructor function.</a></h3>
+<p>In this section,
+we’ll be using another example to demonstrate
+more of what <code>derive_adhoc</code> can do.</p>
+<p>We’ll be building a <code>Constructor</code> template
+to define a <code>new()</code> function for a struct,
+without having to write out all of its arguments.</p>
+<p>Let’s start with the following (struct-only) template:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="macro">define_derive_adhoc! </span>{
+   Constructor =
+
+   <span class="kw">impl</span>&lt;<span class="macro-nonterminal">$tgens</span>&gt; <span class="macro-nonterminal">$ttype </span><span class="kw">where </span><span class="macro-nonterminal">$twheres </span>{
+      <span class="kw">pub fn </span>new( $( <span class="macro-nonterminal">$fname</span>: <span class="macro-nonterminal">$ftype </span>, ) ) -&gt; <span class="self">Self </span>{
+          <span class="self">Self </span>{
+              $( <span class="macro-nonterminal">$fname </span>, )
+          }
+      }
+   }
+}</code></pre></div>
+<p>When you apply the above template to a type like this:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>derive_adhoc::Adhoc;
+<span class="attr">#[derive(Adhoc)]
+#[derive_adhoc(Constructor)]
+</span><span class="kw">struct </span>Ex&lt;A&gt; {
+  a: f64,
+  b: A,
+  c: String
+}</code></pre></div>
+<p>You’ll get a constructor like this:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">impl</span>&lt;A&gt; Ex&lt;A&gt; {
+    <span class="kw">pub fn </span>new( a: f64, b: A, c: String ) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{ a, b, c }
+    }
+}</code></pre></div>
+<p>So far, there aren’t any new techniques at work here.
+We’ll add some more down below.</p>
+<h4 id="marking-a-templates-limitations"><a href="#marking-a-templates-limitations">Marking a template’s limitations</a></h4>
+<p>The template above doesn’t work for enumerations.
+If you try to apply it to one, you’ll get
+a not-entirely-helpful error message.</p>
+<p>In earlier examples,
+we’ve shown how to make templates
+that apply to enums as well as structs.
+But let’s say that in this case,
+we want our template to be struct-only.</p>
+<p>We can tell <code>derive_adhoc</code> about this restriction,
+to help it generate more useful error messages:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="macro">define_derive_adhoc! </span>{
+   Constructor <span class="kw">for struct </span>= <span class="comment">// (1)
+
+   </span><span class="kw">impl</span>&lt;<span class="macro-nonterminal">$tgens</span>&gt; <span class="macro-nonterminal">$ttype </span><span class="kw">where </span><span class="macro-nonterminal">$twheres </span>{
+      <span class="kw">pub fn </span>new( $( <span class="macro-nonterminal">$fname</span>: <span class="macro-nonterminal">$ftype </span>, ) ) -&gt; <span class="self">Self </span>{
+          <span class="self">Self </span>{
+              $( <span class="macro-nonterminal">$fname </span>, )
+          }
+      }
+   }
+}</code></pre></div>
+<p>(Note the use of <code>for struct</code> above at <code>// (1)</code>.)</p>
+<p>Now if we try to apply our template to an enum,
+we’ll get a more useful error:</p>
+<div class="example-wrap"><pre class="language-text,ignore"><code>error: template defined for struct, but applied to enum
+</code></pre></div><h4 id="working-with-visibility"><a href="#working-with-visibility">Working with visibility</a></h4>
+<p>Our <code>Constructor</code> template above doesn’t really make sense
+if it’s applied to a non-public type:
+Rust may even complain that we’re declaring
+a public function that ruturns a private type!</p>
+<p>Let’s fix this, and have it give our constructor
+the same visibility as the type itself:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="macro">define_derive_adhoc! </span>{
+   Constructor <span class="kw">for struct </span>=
+
+   <span class="kw">impl</span>&lt;<span class="macro-nonterminal">$tgens</span>&gt; <span class="macro-nonterminal">$ttype </span><span class="kw">where </span><span class="macro-nonterminal">$twheres </span>{
+      <span class="macro-nonterminal">$tvis </span><span class="kw">fn </span>new( $( <span class="macro-nonterminal">$fname</span>: <span class="macro-nonterminal">$ftype </span>, ) ) -&gt; <span class="self">Self </span>{
+          <span class="self">Self </span>{
+              $( <span class="macro-nonterminal">$fname </span>, )
+          }
+      }
+   }
+}</code></pre></div>
+<p>Here instead of saying <code>pub fn new</code>,
+we said <code>$tvis fn new</code>.
+The <code>$tvis</code> keyword will expand
+to the visibility of the top-level type.</p>
+<p>There is a similar similar <code>$fvis</code>
+that expands to the visibility of the current field.</p>
+<p>(Since enums variants are always visible, there is no <code>$vvis</code>.)</p>
+<h4 id="using-attributes-to-make-a-template-take-arguments"><a href="#using-attributes-to-make-a-template-take-arguments">Using attributes to make a template take arguments</a></h4>
+<p>Let’s suppose we want to make our <code>Constructor</code> template
+a little more flexible:
+we’d like to be able to give the <code>new</code> function a different name.</p>
+<p>We could do this as follows:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="macro">define_derive_adhoc! </span>{
+   Constructor <span class="kw">for struct </span>=
+
+   <span class="kw">impl</span>&lt;<span class="macro-nonterminal">$tgens</span>&gt; <span class="macro-nonterminal">$ttype </span><span class="kw">where </span><span class="macro-nonterminal">$twheres </span>{
+      <span class="kw">pub fn </span>${tmeta(newfn)} <span class="comment">// (1)
+      </span>( $( <span class="macro-nonterminal">$fname</span>: <span class="macro-nonterminal">$ftype </span>, ) ) -&gt; <span class="self">Self </span>{
+          <span class="self">Self </span>{
+              $( <span class="macro-nonterminal">$fname </span>, )
+          }
+      }
+   }
+}
+
+<span class="kw">use </span>derive_adhoc::Adhoc;
+<span class="attr">#[derive(Adhoc)]
+#[derive_adhoc(Constructor)]
+#[adhoc(newfn=<span class="string">&quot;construct_example&quot;</span>)]
+</span><span class="kw">struct </span>Example {
+    a: f64,
+    b: String
+}</code></pre></div>
+<p>Here, instead of specifying “new”
+for the method name in our template,
+we give the name as <code>${tmeta(newfn)}</code>.
+This tells the template to look for an
+<code>#[adhoc(newfn=&quot;...&quot;)]</code> attribute on the type,
+and to use the value of that attribute
+in place of the keyword.</p>
+<p>If we want our attribute to be more namespaced,
+we can instead say something like
+<code>${tmeta(Constructor(newfn = &quot;...&quot;))}</code>.
+If we do, the template will look for an attribute like
+<code>#[adhoc(Constructor(newfn = &quot;...&quot;))]</code>.</p>
+<p>The <code>$tmeta</code> keyword that we used here
+tells the template
+to look at the <code>#[adhoc]</code> attributes for the <em>type</em>.
+We can, instead, use <code>$vmeta</code>
+to look for <code>#[adhoc]</code> attributes for the current <em>variant</em>,
+or <code>$fmeta</code> to
+to look for <code>#[adhoc]</code> attributes for the current <em>field</em>.</p>
+<!--
+> TODO: Is this the right way to talk about "as lit" and "as ty"?
+> I'm thinking not yet.
+ -->
+<h4 id="getting-started-with-conditionals"><a href="#getting-started-with-conditionals">Getting started with conditionals</a></h4>
+<p>In the example above,
+we made it possible to rename the “new” function
+generated by our template.
+But our approach is flawed:
+if the user <em>doesn’t</em> provide
+the <code>#[adhoc(newfn)]</code> adhoc attribute,
+the template won’t make a function name at all!</p>
+<p>Let’s show how to fix that:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="macro">define_derive_adhoc! </span>{
+   Constructor <span class="kw">for struct </span>=
+
+   <span class="kw">impl</span>&lt;<span class="macro-nonterminal">$tgens</span>&gt; <span class="macro-nonterminal">$ttype </span><span class="kw">where </span><span class="macro-nonterminal">$twheres </span>{
+   <span class="kw">pub fn
+        </span>${<span class="kw">if </span>tmeta(newfn) { ${tmeta(newfn)} } <span class="kw">else </span>{ new } } <span class="comment">// (1)
+     </span>( $( <span class="macro-nonterminal">$fname</span>: <span class="macro-nonterminal">$ftype </span>, ) ) -&gt; <span class="self">Self </span>{
+          <span class="self">Self </span>{
+              $( <span class="macro-nonterminal">$fname </span>, )
+          }
+      }
+   }
+}</code></pre></div>
+<p>Have a look at the line marked with <code>// (1)</code>.
+It introduces a new concept: <em>conditional expansion</em>.
+The <code>${if ...}</code> keyword checks whether a given <em>condition</em> is true.
+If it is, then it expands to one of its arguments.
+Otherwise, it expands to an “else” argument (if any).</p>
+<blockquote>
+<p>Also, you can chain <code>$if</code>s, as in
+<code>${if COND1 { ... } else if COND2 { ... } else { ... }</code>
+and so on!</p>
+</blockquote>
+<p>Here, the condition is <code>tmeta(newfn)</code>.
+That condition is true if the current type
+has an <code>#[adhoc(newfn)]</code> attribute,
+and false otherwise.
+There are also <code>vmeta</code> and <code>fmeta</code> attributes
+to detect <code>#[adhoc(..)]</code> attributes
+on variants and fields respectively.</p>
+<h4 id="more-complicated-conditionals"><a href="#more-complicated-conditionals">More complicated conditionals</a></h4>
+<p>Frequently, we’d like our template
+to behave in different ways different fields.
+For example, let’s suppose that we want our template
+to be able to set fields to their default values,
+and not take them as arguments.</p>
+<p>We could do this with an explicit conditional for each field:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="macro">define_derive_adhoc! </span>{
+   Constructor =
+
+   <span class="kw">impl</span>&lt;<span class="macro-nonterminal">$tgens</span>&gt; <span class="macro-nonterminal">$ttype </span><span class="kw">where </span><span class="macro-nonterminal">$twheres </span>{
+     <span class="kw">pub fn </span>new
+     ( $(
+          ${when not(fmeta(Constructor(default))) } <span class="comment">// (1)
+          </span><span class="macro-nonterminal">$fname</span>: <span class="macro-nonterminal">$ftype </span>,
+        ) ) -&gt; <span class="self">Self </span>{
+          <span class="self">Self </span>{
+              $( <span class="macro-nonterminal">$fname</span>:
+                  ${<span class="kw">if </span>fmeta(Constructor(default)) { Default::default() }
+                  <span class="kw">else </span>{ <span class="macro-nonterminal">$fname </span>} }
+                 , )
+          }
+      }
+   }
+}
+
+<span class="kw">use </span>derive_adhoc::Adhoc;
+<span class="attr">#[derive(Adhoc)]
+#[derive_adhoc(Constructor)]
+</span><span class="kw">struct </span>Foo {
+    <span class="attr">#[adhoc(Constructor(default))]
+    </span>s: Vec&lt;String&gt;,
+    n: u32,
+}</code></pre></div>
+<p>Here we’re using a new construct: <code>$when</code>.
+It’s only valid inside a loop like <code>$( ... )</code>.
+It causes the output of the loop to be surpressed
+whenever the condition is not true.</p>
+<p>The condition in this cases is <code>not(fmeta(Constructor(default)))</code>.
+You’ve seen <code>fmeta</code> before;
+<code>not</code> is just how we express negation.
+All together, this <code>$when</code> keyword causes each field
+that has <code>#[adhoc(Constructor(default))]</code> applied to it
+to be omitted from the list of arguments
+to the <code>new()</code> function.</p>
+<p>You can use other boolean operators in conditions too:
+there is an <code>any(...)</code> that is true
+whenever at least one of its arguments is true,
+and an <code>all(...)</code> that is true
+when <em>all</em> of its arguments are true.</p>
+<h3 id="other-features"><a href="#other-features">Other features</a></h3>
+<p>derive-adhoc has many more features,
+that aren’t yet explained in this tutorial.
+For example:</p>
+<ul>
+<li>
+<p><code>is_enum</code>, <code>is_struct</code>, <code>is_union</code>;
+<code>v_is_unit</code>, <code>is_named</code>, <code>is_tuple</code>;
+<code>fvis</code>, <code>tvis</code>:
+and <code>approx_equal</code>:
+more conditions for dealing with various cases by hand.</p>
+</li>
+<li>
+<p><code>$tdef*</code>, <code>$vdef*</code>, <code>$fdef*</code>
+for defining a new data structure
+in terms of features of the input data structure,
+and <code>$Xattrs</code> for passing through attributes.</p>
+</li>
+<li>
+<p><code>${select1}</code>
+can help with writing careful templates
+that will reject incoherent inputs.</p>
+</li>
+<li>
+<p><code>#{define }</code> and <code>${defcond }</code>
+to make user-defined reuseable template keywords,
+to save repetition in templates.</p>
+</li>
+</ul>
+<p>Some of these can be seen in action in test cases in
+<a href="https://gitlab.torproject.org/Diziet/rust-derive-adhoc/-/tree/main/tests/expand">our source repo</a></p>
+<p>Full details are in the <a href="../doc_reference/index.html" title="mod derive_adhoc::doc_reference">reference</a>.</p>
+<!--
+
+ TODO:
+
+> ## Explicit repetition
+>
+>   (When to use `${for}`?)
+>
+> ## What else am I missing?
+>
+> ## Links
+>
+>  - Link to more worked and commented examples.
+>    - Try to clone some proc-macros that we use a lot, and see
+>      if we can.
+>  - Link to each reference section.
+
+-->
+</div></details></section></div></main></body></html>
